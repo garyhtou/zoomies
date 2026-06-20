@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zoomies &middot; Strava for cats</title>
+<meta name="description" content="Zoomies is Strava for cats. A featherweight smart collar logs every sprint, stalk, and sunbeam nap, then turns it into activity rings, heatmaps, and leaderboards your cat will pretend not to care about." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <a class="brand" href="#">
+        <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="2.4"/><circle cx="16" cy="9" r="2.4"/><circle cx="5.5" cy="14" r="2"/><circle cx="18.5" cy="14" r="2"/><path d="M12 12.5c-3 0-5 2.2-5 4.4 0 1.7 1.4 2.6 3 2.6 1 0 1.4-.4 2-.4s1 .4 2 .4c1.6 0 3-.9 3-2.6 0-2.2-2-4.4-5-4.4z"/></svg>
+        Zoomies
+      </a>
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#features">Features</a>
+        <a class="nav-cta" href="#">Get the collar</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <canvas id="trail" aria-hidden="true"></canvas>
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="live-dot"></span> Now tracking 2.4M cats</span>
+        <h1 class="hero-title">
+          <span class="line"><span>Every nap, hunt,</span></span>
+          <span class="line"><span>and <span class="accent">3am zoomie.</span></span></span>
+          <span class="line"><span>Tracked.</span></span>
+        </h1>
+        <p class="hero-sub">Zoomies is Strava for cats. A featherweight collar logs every sprint, stalk, and sunbeam nap, then turns it into stats your cat will pretend not to care about.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" data-magnetic href="#dashboard">See a live demo <span aria-hidden="true">&darr;</span></a>
+          <a class="btn btn-ghost" href="#">Get the collar</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="rings-card">
+          <div class="rings-head">
+            <div class="who"><span class="avatar">M</span><div><strong>Mochi</strong><span class="status"><span class="z-dot"></span> napping &middot; 2h 14m</span></div></div>
+            <span class="today">Today</span>
+          </div>
+          <svg class="rings" viewBox="0 0 220 220" role="img" aria-label="Activity rings: zoomies 82%, hunt 64%, rest 91%">
+            <g class="ring-track"><circle cx="110" cy="110" r="92"/><circle cx="110" cy="110" r="70"/><circle cx="110" cy="110" r="48"/></g>
+            <g class="ring-fill">
+              <circle class="r-zoom" cx="110" cy="110" r="92" data-pct="0.82"/>
+              <circle class="r-hunt" cx="110" cy="110" r="70" data-pct="0.64"/>
+              <circle class="r-rest" cx="110" cy="110" r="48" data-pct="0.91"/>
+            </g>
+          </svg>
+          <div class="rings-legend">
+            <span><i class="sw z"></i>Zoomies <b data-count="82" data-suffix="%">0</b></span>
+            <span><i class="sw h"></i>Hunt <b data-count="64" data-suffix="%">0</b></span>
+            <span><i class="sw r"></i>Rest <b data-count="91" data-suffix="%">0</b></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ LIVE DASHBOARD CENTERPIECE ============ -->
+    <section id="dashboard" class="dashboard">
+      <div class="sec-head">
+        <h2 class="reveal">Mochi's week, quantified.</h2>
+        <p class="reveal sec-lede">Real metrics, deeply silly source data. Hover the heatmap, cats zoom most at 3am and you finally have proof.</p>
+      </div>
+
+      <div class="stat-tiles">
+        <div class="tile reveal"><span class="t-label">Top speed</span><span class="t-num"><b data-count="19.4" data-dec="1">0</b> <i>mph</i></span></div>
+        <div class="tile reveal"><span class="t-label">Zoomies today</span><span class="t-num"><b data-count="7">0</b></span></div>
+        <div class="tile reveal"><span class="t-label">Naps logged</span><span class="t-num"><b data-count="11">0</b></span></div>
+        <div class="tile reveal"><span class="t-label">Treats burned</span><span class="t-num"><b data-count="240">0</b> <i>kcal</i></span></div>
+      </div>
+
+      <div class="panels">
+        <div class="panel heatmap-panel reveal">
+          <div class="panel-head"><h3>Zoomies heatmap</h3><span class="panel-sub">last 7 days &middot; by hour</span></div>
+          <div class="heatmap" id="heatmap" aria-label="Heatmap of zoomies by hour and day"></div>
+          <div class="heat-scale"><span>calm</span><i class="g0"></i><i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i><span>feral</span></div>
+        </div>
+
+        <div class="panel timeline-panel reveal">
+          <div class="panel-head"><h3>Today, hour by hour</h3><span class="panel-sub">24h</span></div>
+          <div class="daybar" id="daybar" aria-label="Activity timeline for today"></div>
+          <div class="daybar-legend">
+            <span><i class="sw z"></i>Zoomies</span><span><i class="sw h"></i>Hunt</span>
+            <span><i class="sw r"></i>Rest</span><span><i class="sw a"></i>Awake</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCROLL-SCRUBBED DAY IN THE LIFE ============ -->
+    <section id="day" class="day">
+      <div class="day-inner"><div id="day-stage"></div></div>
+    </section>
+
+    <!-- ============ LEADERBOARD ============ -->
+    <section id="leaderboard" class="leaderboard">
+      <div class="sec-head">
+        <h2 class="reveal">This week's zoomie leaderboard.</h2>
+        <p class="reveal sec-lede">Top sprinters in your neighborhood. Bars fill to weekly zoomie score.</p>
+      </div>
+      <ol class="board" id="board"></ol>
+    </section>
+
+    <!-- ============ FEATURE TILT CARDS ============ -->
+    <section id="features" class="features">
+      <h2 class="reveal">Built for the discerning house panther.</h2>
+      <div class="card-grid">
+        <article class="tilt reveal"><div class="glow"></div><div class="tilt-inner"><div class="c-ic ic-z"><svg viewBox="0 0 24 24" fill="#0b0b0d" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></div><h3>Auto-detected zoomies</h3><p>A 9-axis sensor knows the difference between a sprint and a slow blink. No taps required.</p></div></article>
+        <article class="tilt reveal"><div class="glow"></div><div class="tilt-inner"><div class="c-ic ic-r"><svg viewBox="0 0 24 24" fill="#0b0b0d" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div><h3>Nap stage analysis</h3><p>Light, deep, and full loaf. See exactly how much of the day went to professional resting.</p></div></article>
+        <article class="tilt reveal"><div class="glow"></div><div class="tilt-inner"><div class="c-ic ic-h"><svg viewBox="0 0 24 24" fill="none" stroke="#0b0b0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>3am zoomie alerts</h3><p>Get paged the instant a sprint kicks off, so you can be appropriately concerned from bed.</p></div></article>
+      </div>
+    </section>
+
+    <!-- ============ METRICS ============ -->
+    <section class="metrics">
+      <div class="metric"><div class="m-num" data-count="2.4" data-dec="1" data-suffix="M">0</div><div class="m-label">cats tracked</div></div>
+      <div class="metric"><div class="m-num" data-count="918" data-suffix="M">0</div><div class="m-label">naps logged</div></div>
+      <div class="metric"><div class="m-num" data-count="23.6" data-dec="1" data-suffix=" mph">0</div><div class="m-label">record sprint</div></div>
+      <div class="metric"><div class="m-num" data-count="11.2" data-dec="1" data-suffix="B">0</div><div class="m-label">zoomies counted</div></div>
+    </section>
+
+    <footer class="footer">
+      <div class="foot-brand"><span class="brand-mark-sm"></span> Zoomies</div>
+      <div class="foot-note">A demo by <a href="https://garytou.com">Gary Tou</a>, built with the <a href="https://github.com/garyhtou/claude-plugins">high-fidelity-web</a> plugin and supervised, with visible disdain, by a cat. <a href="https://github.com/garyhtou/zoomies">Source</a>. Not a real product (cats remain untrackable by design).</div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
