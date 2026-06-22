@@ -3,7 +3,7 @@
 **Strava for cats.** A featherweight smart collar logs every sprint, stalk, and
 sunbeam nap, then turns it into stats your cat will pretend not to care about.
 
-### [Open the live site &rarr;](https://garyhtou.github.io/zoomies/)
+### [Open the live site &rarr;](https://zoomies.garytou.dev/)
 
 ![Zoomies: a glowing zoomie-trail path weaving across a dark hero, headline "Every nap, hunt, and 3am zoomie. Tracked.", with an activity-rings card showing Mochi napping](preview/hero.png)
 
