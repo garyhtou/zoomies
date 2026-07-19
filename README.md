@@ -9,7 +9,7 @@ sunbeam nap, then turns it into stats your cat will pretend not to care about.
 
 > This is an example site built with the
 > [high-fidelity-web](https://github.com/garyhtou/claude-plugins) Claude Code
-> skill, a demo of the kind of site that skill produces — the site, this repo,
+> skill, a demo of the kind of site that skill produces. The site, this repo,
 > and this README were all written by Claude Code. Everything below is written
 > as the product itself. Zoomies is not a real product (cats remain untrackable
 > by design).
